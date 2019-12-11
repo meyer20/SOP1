@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 public class estacionamento {
     static int parkLength = 20;
     static String[] parkingSpace = new String[parkLength];
-    static Semaphore parkController = new Semaphore(2);;
+    static Semaphore parkController = new Semaphore(1);;
 
     public static void main(String[] args) {
         new Thread(t).start();
@@ -27,15 +27,6 @@ public class estacionamento {
     public static void entrance(Semaphore parkController) throws InterruptedException {
         while (true) {
             parkCar(parkingSpace, generateCarName(), parkController);
-//            boolean hasVacancy = parkCar(parkingSpace, generateCarName(), parkController);
-//
-//            parkController.acquire();
-//            if (!hasVacancy) {
-//                Thread.sleep(1000);
-//                System.out.println("Sem vagas disponiveís, liberando uma vaga!");
-//                leaveRandomCar(parkLength, parkingSpace, parkController);
-//            }
-//            parkController.release();
         }
     }
 
@@ -66,13 +57,8 @@ public class estacionamento {
     public static void leaveRandomCar(int parkLength, String[] parkingSpace, Semaphore parkController) throws InterruptedException {
         Random random = new Random();
         int spaceNumber = random.nextInt(parkLength);
-
-//        if (parkingSpace[spaceNumber].equals(null)) {
-//            leaveRandomCar(parkLength, parkingSpace, parkController);
-//        } else {
         System.out.println(parkingSpace[spaceNumber] + " desocupou a vaga " + (spaceNumber + 1) + ".");
         parkingSpace[spaceNumber] = null;
-//        }
     }
 
     public static String generateCarName() {
